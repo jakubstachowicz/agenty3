@@ -15,14 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
-import lombok.extern.java.Log;
+//import lombok.extern.java.Log;
 import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
 
 /**
  *
  * @author psysiu
  */
-@Log
+//@Log
 public class ReceiveContainersLisBehaviour extends Behaviour {
 
     private boolean done = false;
@@ -95,7 +95,7 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
 
                 myAgent.addBehaviour(new MigratingBehaviour(myAgent));
             } catch (Codec.CodecException | OntologyException ex) {
-                log.log(Level.SEVERE, null, ex);
+//                log.log(Level.SEVERE, null, ex);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

@@ -10,14 +10,14 @@ import jade.domain.mobility.MobilityOntology;
 import jade.lang.acl.ACLMessage;
 import java.util.UUID;
 import java.util.logging.Level;
-import lombok.extern.java.Log;
+//import lombok.extern.java.Log;
 import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
 
 /**
  *
  * @author psysiu
  */
-@Log
+//@Log
 public class RequestContainersListBehaviour extends OneShotBehaviour {
 
     protected final MigratingAgent myAgent;
@@ -45,7 +45,7 @@ public class RequestContainersListBehaviour extends OneShotBehaviour {
             myAgent.send(request);
             myAgent.addBehaviour(new ReceiveContainersLisBehaviour(myAgent, conversationId));
         } catch (Codec.CodecException | OntologyException ex) {
-            log.log(Level.WARNING, ex.getMessage(), ex);
+//            log.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
 

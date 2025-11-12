@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-import lombok.Getter;
-import lombok.Setter;
+//import lombok.Getter;
+//import lombok.Setter;
 import pl.gda.pg.eti.kask.sa.migration.behaviours.RequestContainersListBehaviour;
 
 /**
@@ -20,20 +20,12 @@ import pl.gda.pg.eti.kask.sa.migration.behaviours.RequestContainersListBehaviour
  */
 public class MigratingAgent extends Agent {
 
-    @Setter
-    @Getter
     private Map<String, Boolean> locationsVisited = new HashMap<>();
 
-    @Setter
-    @Getter
     private Map<String, Location> locationsMap = new HashMap<>();
 
-    @Setter
-    @Getter
     private String lastVisited;
 
-    @Setter
-    @Getter
     private String toBeVisited;
 
     public MigratingAgent() {
@@ -97,4 +89,35 @@ public class MigratingAgent extends Agent {
         super.beforeMove();
     }
 
+    public Map<String, Boolean> getLocationsVisited() {
+        return locationsVisited;
+    }
+
+    public void setLocationsVisited(Map<String, Boolean> locationsVisited) {
+        this.locationsVisited = locationsVisited;
+    }
+
+    public Map<String, Location> getLocationsMap() {
+        return locationsMap;
+    }
+
+    public void setLocationsMap(Map<String, Location> locationsMap) {
+        this.locationsMap = locationsMap;
+    }
+
+    public String getLastVisited() {
+        return lastVisited;
+    }
+
+    public void setLastVisited(String lastVisited) {
+        this.lastVisited = lastVisited;
+    }
+
+    public String getToBeVisited() {
+        return toBeVisited;
+    }
+
+    public void setToBeVisited(String toBeVisited) {
+        this.toBeVisited = toBeVisited;
+    }
 }
