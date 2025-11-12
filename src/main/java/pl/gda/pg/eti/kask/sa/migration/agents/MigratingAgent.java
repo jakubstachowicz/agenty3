@@ -56,7 +56,7 @@ public class MigratingAgent extends Agent {
             visited = visited.concat(entry.getKey() + ": " + (entry.getValue() ? "Tak\n" : "Nie\n"));
         }
 
-        JOptionPane.showMessageDialog(null, "Przybywam do " + this.here().getName() + "\nOdwiedzono:\n".concat(visited));
+        JOptionPane.showMessageDialog(null, "Przybywam do " + this.here().getName() + "\n\nOdwiedzono:\n".concat(visited));
 //        try {
 //            Thread.sleep(this.timeout/2);
 //        } catch (InterruptedException e) {
@@ -73,7 +73,12 @@ public class MigratingAgent extends Agent {
 //        } catch (InterruptedException e) {
 //            throw new RuntimeException(e);
 //        }
-        JOptionPane.showMessageDialog(null, "Odchodzę z " + this.here().getName());
+        String visited = "";
+        for (Map.Entry<String, Boolean> entry : locationsVisited.entrySet()) {
+            visited = visited.concat(entry.getKey() + ": " + (entry.getValue() ? "Tak\n" : "Nie\n"));
+        }
+
+        JOptionPane.showMessageDialog(null, "Odchodzę z " + this.here().getName() + "\n\nOdwiedzono:\n".concat(visited));
         //stop threads        
         //save state
         super.beforeMove();
