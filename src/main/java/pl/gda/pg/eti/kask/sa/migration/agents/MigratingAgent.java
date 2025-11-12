@@ -56,7 +56,7 @@ public class MigratingAgent extends Agent {
             visited = visited.concat(entry.getKey() + ": " + (entry.getValue() ? "Tak\n" : "Nie\n"));
         }
 
-        JOptionPane.showMessageDialog(null, "Przybywam do " + this.here().getName() + "\nOdwiedzono:\n");
+        JOptionPane.showMessageDialog(null, "Przybywam do " + this.here().getName() + "\nOdwiedzono:\n".concat(visited));
 //        try {
 //            Thread.sleep(this.timeout/2);
 //        } catch (InterruptedException e) {

@@ -71,7 +71,7 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
                     }
                 }
 
-                if (!myAgent.getLocationsVisited().isEmpty()) {
+                if (myAgent.getLocationsVisited().isEmpty()) {
                     throw new Exception("sth is very wrong");
                 }
                 if (myAgent.getLocationsVisited().values().stream().allMatch(value -> value == true)) {
