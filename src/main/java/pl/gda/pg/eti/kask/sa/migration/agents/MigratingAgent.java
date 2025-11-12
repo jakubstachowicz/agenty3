@@ -28,6 +28,10 @@ public class MigratingAgent extends Agent {
     @Getter
     @Setter
     private int timeout;
+
+    @Getter
+    @Setter
+    private boolean randomJumping;
     
     public MigratingAgent() {
     }
@@ -36,6 +40,7 @@ public class MigratingAgent extends Agent {
     protected void setup() {
         super.setup();
         this.timeout = 1200;
+        this.randomJumping = true;
         this.firstLocation = this.here();
         ContentManager cm = getContentManager();
         cm.registerLanguage(new SLCodec());

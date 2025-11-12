@@ -8,9 +8,12 @@ import jade.core.Location;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
+
 import lombok.extern.java.Log;
 import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
 
@@ -54,6 +57,9 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
                     locations.add((Location) i);
                 });
                 locations.remove(myAgent.getFirstLocation());
+                if (myAgent.isRandomJumping()) {
+                    Collections.shuffle(locations);
+                }
                 locations.add(myAgent.getFirstLocation());
                 myAgent.setLocations(locations);
                 myAgent.addBehaviour(new MigratingBehaviour(myAgent));
