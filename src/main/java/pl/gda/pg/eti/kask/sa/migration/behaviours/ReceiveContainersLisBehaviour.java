@@ -11,6 +11,7 @@ import jade.lang.acl.MessageTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -53,18 +54,35 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
                 ContentElement ce = myAgent.getContentManager().extractContent(msg);
                 jade.util.leap.List items = ((Result) ce).getItems();
                 List<Location> locations = new ArrayList<>();
+                myAgent.setLocationsMap(new HashMap<>());
+
                 items.iterator().forEachRemaining(i -> {
                     locations.add((Location) i);
+                    myAgent.getLocationsMap().put(((Location) i).getName(), (Location) i);
                 });
-                locations.remove(myAgent.getFirstLocation());
-                if (myAgent.isRandomJumping()) {
-                    Collections.shuffle(locations);
+                for (Location location : locations) {
+                    if (!myAgent.getLocationsVisited().containsKey(location.getName())) {
+                        myAgent.getLocationsVisited().put(location.getName(), false);
+                    }
                 }
-                locations.add(myAgent.getFirstLocation());
-                myAgent.setLocations(locations);
+                for (String location : myAgent.getLocationsVisited().keySet()) {
+                    if (locations.stream().noneMatch(l -> l.getName().equals(location))) {
+                        myAgent.getLocationsVisited().remove(location);
+                    }
+                }
+
+                if (!myAgent.getLocationsVisited().isEmpty()) {
+                    throw new Exception("sth is very wrong");
+                }
+                if (myAgent.getLocationsVisited().values().stream().allMatch(value -> value == true)) {
+                    myAgent.getLocationsVisited().replaceAll((key, value) -> false);
+                }
+
                 myAgent.addBehaviour(new MigratingBehaviour(myAgent));
             } catch (Codec.CodecException | OntologyException ex) {
                 log.log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
     }
