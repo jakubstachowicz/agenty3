@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Jade Boot" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="jade.Boot" />
+    <module name="lab3" />
+    <option name="PROGRAM_PARAMETERS" value="-gui -host localhost -port 5698 -local-host localhost -local-port 5698 -name PLATFORMAJADE -container-name MAINCONT" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
