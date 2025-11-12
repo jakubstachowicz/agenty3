@@ -31,6 +31,7 @@ public class MigratingBehaviour extends OneShotBehaviour {
             }
         }
 
+        myAgent.setToBeVisited(location);
         myAgent.doMove(myAgent.getLocationsMap().get(location));
         myAgent.addBehaviour(new RequestContainersListBehaviour(myAgent));
     }
