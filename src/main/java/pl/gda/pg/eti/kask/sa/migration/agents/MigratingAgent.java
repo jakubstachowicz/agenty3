@@ -5,7 +5,10 @@ import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.Location;
 import jade.domain.mobility.MobilityOntology;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,19 +22,11 @@ public class MigratingAgent extends Agent {
 
     @Setter
     @Getter
-    private List<Location> locations;
+    private Map<String, Boolean> locationsVisited = new HashMap<>();
 
     @Setter
     @Getter
-    private Location firstLocation;
-
-    @Getter
-    @Setter
-    private int timeout;
-
-    @Getter
-    @Setter
-    private boolean randomJumping;
+    private Map<String, Location> locationsMap = new HashMap<>();
     
     public MigratingAgent() {
     }
@@ -39,9 +34,7 @@ public class MigratingAgent extends Agent {
     @Override
     protected void setup() {
         super.setup();
-        this.timeout = 1200;
-        this.randomJumping = true;
-        this.firstLocation = this.here();
+
         ContentManager cm = getContentManager();
         cm.registerLanguage(new SLCodec());
         cm.registerOntology(MobilityOntology.getInstance());
@@ -58,24 +51,34 @@ public class MigratingAgent extends Agent {
 
         //restore state
         //resume threads
-//        JOptionPane.showMessageDialog(null, "Przybywam!");
-        try {
-            Thread.sleep(this.timeout/2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        String visited = "";
+        for (Map.Entry<String, Boolean> entry : locationsVisited.entrySet()) {
+            visited = visited.concat(entry.getKey() + ": " + (entry.getValue() ? "Tak\n" : "Nie\n"));
         }
+
+        JOptionPane.showMessageDialog(null, "Przybywam do " + this.here().getName() + "\n\nOdwiedzono:\n".concat(visited));
+//        try {
+//            Thread.sleep(this.timeout/2);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 
 
     @Override
     protected void beforeMove() {
-        try {
-            Thread.sleep(this.timeout/2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+//        try {
+//            Thread.sleep(this.timeout/2);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        String visited = "";
+        for (Map.Entry<String, Boolean> entry : locationsVisited.entrySet()) {
+            visited = visited.concat(entry.getKey() + ": " + (entry.getValue() ? "Tak\n" : "Nie\n"));
         }
-//        JOptionPane.showMessageDialog(null, "Odchodzę!");
+
+        JOptionPane.showMessageDialog(null, "Odchodzę z " + this.here().getName() + "\n\nOdwiedzono:\n".concat(visited));
         //stop threads        
         //save state
         super.beforeMove();

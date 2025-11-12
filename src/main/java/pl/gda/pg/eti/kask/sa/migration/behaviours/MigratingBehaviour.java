@@ -5,6 +5,8 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
 
+import java.util.Map;
+
 /**
  * @author psysiu
  */
@@ -19,14 +21,18 @@ public class MigratingBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
-        Location location = myAgent.getLocations().get(0);
-        myAgent.getLocations().remove(location);
-        myAgent.doMove(location);
-        if (myAgent.getLocations().isEmpty()) {
-            myAgent.addBehaviour(new RequestContainersListBehaviour(myAgent));
-        } else {
-            myAgent.addBehaviour(new MigratingBehaviour(myAgent));
+        String location = "";
+
+        for (Map.Entry<String, Boolean> entry : myAgent.getLocationsVisited().entrySet()) {
+            if (!entry.getValue().booleanValue()) {
+                entry.setValue(true);
+                location = entry.getKey();
+                break;
+            }
         }
+
+        myAgent.doMove(myAgent.getLocationsMap().get(location));
+        myAgent.addBehaviour(new RequestContainersListBehaviour(myAgent));
     }
 
 //    @Override
